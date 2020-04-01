@@ -1,0 +1,19 @@
+{
+  "name": "test-001",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YEvhen-SHmatko/test-001.git"
+  },
+  "author": "YEvhen SHmatko <yevhen.shmatko@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YEvhen-SHmatko/test-001/issues"
+  },
+  "homepage": "https://github.com/YEvhen-SHmatko/test-001#readme"
+}
