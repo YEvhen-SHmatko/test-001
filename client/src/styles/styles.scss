@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Montserrat;
+  font-weight: 400;
+}
+.bold {
+  font-weight: 700;
+}
+.container {
+  margin: 0 auto;
+  width: 100%;
+  min-width: 320px;
+  max-width: 580px;
+}
+@media only screen and (min-width: 600px) {
+  .container {
+    width: 100%;
+    min-width: 580px;
+    max-width: 748px;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .container {
+    width: 100%;
+    min-width: 748px;
+    max-width: 972px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .container {
+    width: 100%;
+    min-width: 972px;
+    max-width: 1180px;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .container {
+    width: 100%;
+    min-width: 1180px;
+    max-width: 1420px;
+  }
+}
