@@ -1,15 +1,13 @@
 import React from "react";
-import "./Header.scss";
+import "./HeaderSection.scss";
+import { NavLink } from "react-router-dom";
+import Header from "./Header";
 
-export default function header() {
+const HeaderSection = () => {
   return (
     <header className="header">
       <div className="container header__wrap ">
-        <div className="header__head">
-          <a className="header__head-logo" href="#">
-            AppCo
-          </a>
-        </div>
+        <Header />
         <div className="header__main">
           <div className="header__main-left">
             <h2 className="header__left-title">
@@ -20,7 +18,9 @@ export default function header() {
               Our design projects are fresh and simple and will benefit your
               business greatly. Learn more about our work!
             </p>
-            <button className="header__left-btn">View Stats</button>
+            <NavLink className="header__left-btn" to="/stats">
+              View Stats
+            </NavLink>
           </div>
           <div className="header__main-right">
             <img
@@ -33,4 +33,6 @@ export default function header() {
       </div>
     </header>
   );
-}
+};
+
+export default HeaderSection;

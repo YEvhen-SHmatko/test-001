@@ -1,7 +1,8 @@
 import React from "react";
-import "./Footer.scss";
+import "./FooterSection.scss";
+import Footer from "./Footer";
 
-export default function Footer() {
+export default function FooterSection() {
   return (
     <footer className="footer__section">
       <div className="container footer__wrap ">
@@ -13,13 +14,7 @@ export default function Footer() {
           />
           <button className="footer__subscribe-btn">Subscribe</button>
         </div>
-        <div className="footer__down">
-          <a className="header__head-logo" href="#">
-            AppCo
-          </a>
-          <span>All rights reserved by ThemeTags</span>
-          <span>Copyrights © 2019.</span>
-        </div>
+        <Footer />
       </div>
     </footer>
   );

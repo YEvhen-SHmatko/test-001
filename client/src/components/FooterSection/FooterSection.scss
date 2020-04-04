@@ -7,6 +7,9 @@
   background-size: cover;
   background-position: left bottom;
 }
+.other-page__footer {
+  background: #1c3b55;
+}
 .footer__wrap {
   display: flex;
   max-width: 1200px;
@@ -18,7 +21,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 4px;
-  margin: 26px auto 0;
+  margin: 26px auto 44px;
   width: 100%;
   min-width: max-content;
   max-width: 579px;
@@ -56,7 +59,7 @@
 .footer__down {
   display: flex;
   align-items: center;
-  min-height: 92px;
+  height: 58px;
   justify-content: space-between;
   color: #f1f1f1;
 }
