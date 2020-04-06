@@ -45,3 +45,17 @@
 .userStats__schedule-wrap {
   width: 100%;
 }
+.userStats__chart {
+  // height: 354px;
+}
+.chart-container {
+  position: relative;
+  height: 300px;
+  width: 100%;
+}
+#clicksChart {
+  height: 300px !important;
+}
+#viewsChart {
+  height: 300px !important;
+}
