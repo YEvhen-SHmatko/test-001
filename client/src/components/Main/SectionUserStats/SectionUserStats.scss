@@ -1,0 +1,63 @@
+.userStats__section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.userStats__wrap {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  padding-left: 1.32rem;
+  padding-right: 1.32rem;
+}
+@media screen and (min-width: 538px) {
+  .userStats__wrap {
+    padding-left: 0.72rem;
+    padding-right: 0.72rem;
+  }
+}
+.userStats__head {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.userStats__nav {
+  display: flex;
+}
+.userStats__link {
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 20px;
+  text-decoration: none;
+  color: #cccccc;
+}
+.userStats__link-icon {
+  color: #cccccc;
+  font-size: 20px;
+}
+.userStats__link-active {
+  color: #3a80ba;
+}
+.userStats__title {
+  padding-top: 24px;
+  font-size: 32px;
+  line-height: 39px;
+}
+.userStats__schedule-wrap {
+  width: 100%;
+}
+.userStats__chart {
+  // height: 354px;
+  margin-bottom: 40px;
+}
+.userStats__subTitle {
+  font-size: 24px;
+  line-height: 29px;
+}
+// #clicksChart {
+//   height: 300px !important;
+// }
+// #viewsChart {
+//   height: 300px !important;
+// }
