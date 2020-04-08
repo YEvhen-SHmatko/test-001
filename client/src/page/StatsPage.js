@@ -5,7 +5,7 @@ import HeaderOtherPage from "../components/HeaderSection/HeaderOtherPage";
 import SectionStats from "../components/Main/SectionStats/SectionStats";
 import FooterOtherPage from "../components/FooterSection/FooterOtherPage";
 
-const StatsPage = history => {
+const StatsPage = (history) => {
   return (
     <>
       <HeaderOtherPage />
@@ -16,7 +16,7 @@ const StatsPage = history => {
 };
 StatsPage.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  }).isRequired
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 export default StatsPage;

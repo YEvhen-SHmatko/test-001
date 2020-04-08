@@ -8,7 +8,6 @@ import "./SectionUserStats.scss";
 
 const renderChart = async (domElement, data) => {
   const sort = data.map((element) => element.x).sort();
-  console.log(sort);
   new Chart(domElement, {
     type: "line",
     responsive: false,
@@ -17,9 +16,9 @@ const renderChart = async (domElement, data) => {
         {
           data: data,
           fill: false,
-          borderColor: "rgb(75, 192, 192)",
+          borderColor: "#3A80BA",
           lineTension: 0.2,
-          pointRadius: 0,
+          pointRadius: 3,
         },
       ],
     },
@@ -28,7 +27,12 @@ const renderChart = async (domElement, data) => {
         responsive: true,
         xAxes: [
           {
+            gridLines: {
+              display: false,
+              drawBorder: false,
+            },
             ticks: {
+              fontSize: 16,
               display: true,
             },
             type: "time",
@@ -43,9 +47,11 @@ const renderChart = async (domElement, data) => {
           {
             gridLines: {
               display: true,
-              color: "black",
+              color: "#F1F1F1",
+              drawBorder: false,
             },
             ticks: {
+              fontSize: 16,
               display: true,
               min: 0,
               max: 1000,
@@ -53,6 +59,11 @@ const renderChart = async (domElement, data) => {
             },
           },
         ],
+      },
+      tooltips: {
+        titleFontSize: 20,
+        bodyFontSize: 16,
+        footerFontSize: 12,
       },
       legend: {
         display: false,
@@ -77,44 +88,47 @@ export default class SectionStats extends Component {
       }).isRequired,
     }),
   };
-  state = {
-    user: {
-      first_name: "Samuel",
-      last_name: "Frost",
-      views: [
-        { x: "2018-01-21", y: 100 },
-        { x: "2018-01-23", y: 100 },
-        { x: "2018-02-05", y: 40 },
-        { x: "2018-03-08", y: 300 },
-        { x: "2018-03-16", y: 300 },
-        { x: "2018-03-28", y: 300 },
-        { x: "2018-04-16", y: 10 },
-        { x: "2018-05-17", y: 900 },
-      ],
-      clicks: [
-        { x: "2018-01-21", y: 100 },
-        { x: "2018-01-23", y: 200 },
-        { x: "2018-02-05", y: 550 },
-        { x: "2018-03-08", y: 200 },
-        { x: "2018-03-08", y: 850 },
-        { x: "2018-03-16", y: 123 },
-        { x: "2018-03-28", y: 654 },
-        { x: "2018-04-16", y: 10 },
-      ],
-    },
-  };
-  componentDidMount() {
-    // fetch("/user/:id")
-    //   .then((res) => res.json())
-    //   .then((users) => this.setState({ users }));
+  state = {};
+  async componentDidMount() {
+    const id = +this.props.route.match.params.id;
+    //   "proxy": "http://localhost:3001",
+    const data = await fetch(`/user/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        return data.data;
+      })
+      .catch((err) => console.log(err));
+    const mapper = (data) => {
+      return data.reduce(
+        (acc, item) => {
+          if (!acc.first_name && !acc.last_name) {
+            acc.id = item.id;
+            acc.first_name = item.first_name;
+            acc.last_name = item.last_name;
+          }
+          acc.clicks.push({ x: item.date, y: item.clicks });
+          acc.page_views.push({ x: item.date, y: item.page_views });
+          return acc;
+        },
+        {
+          id: "",
+          first_name: "",
+          last_name: "",
+          clicks: [],
+          page_views: [],
+        }
+      );
+    };
+    this.setState({ ...this.state, ...mapper(data) });
+    console.log(this.state);
     const clicksChart = $("#clicksChart");
     const viewsChart = $("#viewsChart");
-    renderChart(clicksChart, this.state.user.clicks);
-    renderChart(viewsChart, this.state.user.views);
+    renderChart(clicksChart, this.state.clicks);
+    renderChart(viewsChart, this.state.page_views);
   }
 
   render() {
-    const { id, first_name, last_name } = this.state.user;
+    const { id, first_name, last_name } = this.state;
     return (
       <section className="userStats__section">
         <div className="container userStats__wrap">
@@ -123,6 +137,16 @@ export default class SectionStats extends Component {
               <Link to="/" className="userStats__link">
                 Main page
               </Link>
+              <span className="material-icons userStats__link-icon">
+                keyboard_arrow_right
+              </span>
+              <NavLink
+                to="/stats"
+                className="userStats__link"
+                activeClassName="userStats__link-active"
+              >
+                User satistics
+              </NavLink>
               <span className="material-icons userStats__link-icon">
                 keyboard_arrow_right
               </span>
@@ -140,14 +164,12 @@ export default class SectionStats extends Component {
           </div>
           <div className="userStats__schedule-wrap">
             <div className="userStats__chart">
-              <h4>Clicks</h4>
+              <h4 className="userStats__subTitle bold">Clicks</h4>
               <canvas id="clicksChart"></canvas>
             </div>
             <div className="userStats__chart">
-              <h4>Vievs</h4>
-              <div className="chart-container">
-                <canvas id="viewsChart"></canvas>
-              </div>
+              <h4 className="userStats__subTitle bold">Views</h4>
+              <canvas id="viewsChart"></canvas>
             </div>
           </div>
         </div>

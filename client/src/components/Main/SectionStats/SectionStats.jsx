@@ -5,7 +5,6 @@ import { Link, NavLink } from "react-router-dom";
 import $ from "jquery";
 import "datatables.net";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
-import Users from "../../../server/users.json";
 import "./SectionStats.scss";
 
 $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -14,32 +13,35 @@ export default class SectionStats extends Component {
   static propTypes = {
     route: PropTypes.shape({
       history: PropTypes.shape({
-        push: PropTypes.func.isRequired
+        push: PropTypes.func.isRequired,
       }).isRequired,
       location: PropTypes.shape({
-        search: PropTypes.string.isRequired
+        search: PropTypes.string.isRequired,
       }).isRequired,
       match: PropTypes.shape({
         params: PropTypes.shape({
-          id: PropTypes.string
-        })
-      }).isRequired
-    })
+          id: PropTypes.string,
+        }),
+      }).isRequired,
+    }),
   };
   state = {};
-  componentDidMount() {
-    // console.log(this.props.history);
-    // {"id":7,"first_name":"Alfie","last_name":"O' Sullivan","email":"aosullivan6@sphinn.com","gender":"Male",
-    // "ip_address":"218.183.185.92"},
+  async componentDidMount() {
+    const data = await fetch("/users")
+      .then((res) => res.json())
+      .then((data) => {
+        return data.data;
+      })
+      .catch((err) => console.log(err));
     $("#dt-table").DataTable({
-      data: Users,
+      data: data,
       sDom: '<"top"i>rt<"bottom"lp><"clear">',
       paging: true,
       search: false,
       ordering: false,
       info: false,
       bLengthChange: false,
-      iDisplayLength: 16,
+      iDisplayLength: 10,
       numbers_length: 5,
       aoColumnDefs: [
         { sClass: "t-col0", aTargets: [0] },
@@ -49,41 +51,41 @@ export default class SectionStats extends Component {
         { sClass: "t-col4", aTargets: [4] },
         { sClass: "t-col5", aTargets: [5] },
         { sClass: "t-col6", aTargets: [6] },
-        { sClass: "t-col7", aTargets: [7] }
+        { sClass: "t-col7", aTargets: [7] },
       ],
       columns: [
         {
           data: "id",
-          title: "Id"
+          title: "Id",
         },
         {
           data: "first_name",
-          title: "First name"
+          title: "First name",
         },
         {
           data: "last_name",
-          title: "Last name"
+          title: "Last name",
         },
         {
           data: "email",
-          title: "Email"
+          title: "Email",
         },
         {
           data: "gender",
-          title: "Gender"
+          title: "Gender",
         },
         {
           data: "ip_address",
-          title: "IP address"
+          title: "IP address",
         },
         {
           data: "id",
-          title: "Total clicks"
+          title: "Total clicks",
         },
         {
           data: "id",
-          title: "Total page views"
-        }
+          title: "Total page views",
+        },
       ],
       oLanguage: {
         sProcessing: "Подождите...",
@@ -100,16 +102,20 @@ export default class SectionStats extends Component {
           sFirst: "Первая",
           sPrevious: `<span class="material-icons">keyboard_arrow_left</span>`,
           sNext: `<span class="material-icons">keyboard_arrow_right</span>`,
-          sLast: "Последняя"
-        }
-      }
+          sLast: "Последняя",
+        },
+      },
     });
-    const historyEdit = that => {
-      const id = that.currentTarget.childNodes[0].textContent;
-      const route = `/user/${id}`;
-      this.props.route.history.push(route);
+    const historyEdit = (that) => {
+      const id = that.target.parentNode.children[0].textContent;
+      const test = that.target.parentNode.children[0].nodeName === "TD";
+      if (test) {
+        console.dir(test);
+        const route = `/user/${id}`;
+        this.props.route.history.push(route);
+      }
     };
-    $("#dt-table tr").click(historyEdit);
+    $("#dt-table").click(historyEdit);
   }
 
   render() {
