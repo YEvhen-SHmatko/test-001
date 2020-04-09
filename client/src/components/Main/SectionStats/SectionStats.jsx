@@ -79,11 +79,11 @@ export default class SectionStats extends Component {
           title: "IP address",
         },
         {
-          data: "id",
+          data: "clicks",
           title: "Total clicks",
         },
         {
-          data: "id",
+          data: "page_views",
           title: "Total page views",
         },
       ],
