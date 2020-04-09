@@ -38,10 +38,10 @@ export default class SectionStats extends Component {
       sDom: '<"top"i>rt<"bottom"lp><"clear">',
       paging: true,
       search: false,
-      ordering: false,
+      ordering: true,
       info: false,
       bLengthChange: false,
-      iDisplayLength: 10,
+      iDisplayLength: 50,
       numbers_length: 5,
       aoColumnDefs: [
         { sClass: "t-col0", aTargets: [0] },
